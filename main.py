@@ -12,3 +12,4 @@ print(f"当前日期是: {current_date}")
 
 # 输出结果
 print(f"当前周数是: {week_number}")
+
