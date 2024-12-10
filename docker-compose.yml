@@ -1,0 +1,11 @@
+services:
+  web:
+    image: my-timeopt-app  # 使用现有的 Docker 镜像
+    ports:
+      - "32179:32179"
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - ./data:/app/data  # 映射本地 data 文件夹到容器内的 /app/data
+    logging:
+      driver: "json-file"
