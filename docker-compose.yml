@@ -1,6 +1,6 @@
 services:
   web:
-    image: ivanlanlei/my-timeopt-app:latest  #远端的image
+    image: ivanlanlei/my-timeopt-app:newtransfer  #远端的image
     ports:
       - "32180:32180"
     environment:
