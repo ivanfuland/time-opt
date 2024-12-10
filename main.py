@@ -1,8 +1,7 @@
+import pytz
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
-import pytz
-import time
 
 app = FastAPI()
 
@@ -14,14 +13,16 @@ class DateRequest(BaseModel):
 
 def convert_timestamp_to_week_number_and_formatted_date(timestamp: int):
     # 将时间戳转换为datetime对象
-    date = datetime.datetime.fromtimestamp(timestamp, pytz.utc)
-    # 转换为东八区时间
-    tz = pytz.timezone('Asia/Shanghai')
-    date_east_8 = date.astimezone(tz)
+    date = datetime.fromtimestamp(timestamp, pytz.utc)
     # 获取对应的ISO周数
-    week_number = date_east_8.isocalendar()[1]
+    week_number = date.isocalendar()[1]
     # 将datetime对象格式化为指定格式
-    formatted_date = date_east_8.strftime("%Y-%m-%d %H:%M:%S")
+    formatted_date = date.strftime("%Y-%m-%d %H:%M:%S")
+    return week_number, formatted_date
+
+def get_current_week():
+    current_timestamp = datetime.now().timestamp()
+    week_number, formatted_date = convert_timestamp_to_week_number_and_formatted_date(current_timestamp)
     return week_number, formatted_date
 
 @app.post("/get_week_number/")
@@ -31,7 +32,7 @@ def get_week_number(request: TimestampRequest):
 
 @app.post("/get_current_week/")
 def get_current_week():
-    current_timestamp = int(time.time())
+    current_timestamp = datetime.now().timestamp()
     week_number, formatted_date = convert_timestamp_to_week_number_and_formatted_date(current_timestamp)
     return {"week_number": week_number, "formatted_date": formatted_date}
 
@@ -55,4 +56,4 @@ def date_to_timestamp(request: DateRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=32180)
+    uvicorn.run(app, host="0.0.0.0", port=32181)

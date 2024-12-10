@@ -11,7 +11,7 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 暴露 Flask 应用运行的端口
-EXPOSE 32180
+EXPOSE 32181
 
 RUN chmod +x main.py
 

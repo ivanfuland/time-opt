@@ -2,7 +2,7 @@ services:
   web:
     image: ivanlanlei/my-timeopt-app:newtransfer  #远端的image
     ports:
-      - "32180:32180"
+      - "32181:32181"
     environment:
       - FLASK_ENV=development
     volumes:

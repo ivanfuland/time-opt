@@ -2,7 +2,7 @@ services:
   web:
     image: my-timeopt-app  # 使用现有的 Docker 镜像
     ports:
-      - "32180:32180"
+      - "32181:32181"
     environment:
       - FLASK_ENV=development
     volumes:
